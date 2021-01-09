@@ -1,6 +1,7 @@
 package com.example.moviemania.ui
 
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moviemania.databinding.ItemMovieBinding
 import com.example.moviemania.domain.Movie
 
+private const val TAG = "MoviesAdapter"
 class MoviesAdapter : ListAdapter<Movie, MoviesAdapter.MovieViewHolder>(DiffUtilCallBack) {
 
 
@@ -18,6 +20,7 @@ class MoviesAdapter : ListAdapter<Movie, MoviesAdapter.MovieViewHolder>(DiffUtil
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = getItem(position)
+        Log.i(TAG, "onBindViewHolder: $movie" )
         holder.bind(movie)
     }
 

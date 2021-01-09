@@ -3,10 +3,12 @@ package com.example.moviemania.network
 import com.example.moviemania.database.DatabaseMovie
 import com.example.moviemania.domain.Movie
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
+data class NetworkMovieContainer(val results: List<NetworkMovie>)
 
-data class NetworkMovieContainer(var results: List<NetworkMovie>)
-
+@JsonClass(generateAdapter = true)
 data class NetworkMovie(
     var id: Int,
     var title:String,
@@ -15,17 +17,17 @@ data class NetworkMovie(
 )
 fun NetworkMovieContainer.asDatabaseModel() = results.map {
     DatabaseMovie(
-        it.id,
-        it.title,
-        it.imageUrl,
-        it.voteAverage
+        id = it.id,
+        title =  it.title,
+        imageUrl = it.imageUrl,
+        voteAverage = it.voteAverage
     )
 }
 fun NetworkMovieContainer.asDomainModel() = results.map {
     Movie(
-        it.id,
-        it.title,
-        it.imageUrl,
-        it.voteAverage
+        id = it.id,
+        title = it.title,
+        imageUrl = it.imageUrl,
+        voteAverage = it.voteAverage
     )
 }

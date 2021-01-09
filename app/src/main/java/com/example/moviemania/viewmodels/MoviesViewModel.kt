@@ -1,26 +1,40 @@
 package com.example.moviemania.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+
+import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.*
 import com.example.moviemania.domain.Movie
+import com.example.moviemania.network.MoviesApi
+import com.example.moviemania.network.asDomainModel
+import com.example.moviemania.repository.MainRepository
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
-class MoviesViewModel : ViewModel() {
+private const val TAG = "MoviesViewModel"
+@ExperimentalCoroutinesApi
+class MoviesViewModel @ViewModelInject constructor(
+    val mainRepository: MainRepository
+) : ViewModel() {
 
-    private val _movies = MutableLiveData<List<Movie>>()
-        val movies: LiveData<List<Movie>>
-            get() = _movies
+    val movies = mainRepository.movies
     init {
-        _movies.value = listOf(
-            Movie("Toy Story",""),
-            Movie("Patch Adams",""),
-            Movie("Christopher robin",""),
-            Movie("interstellar",""),
-            Movie("happiness",""),
-            Movie("Toy story 2",""),
-            Movie("Lion King",""),
-            Movie("Asterix",""),
+        getMovies()
 
-        )
     }
+
+    private fun getMovies(){
+
+        viewModelScope.launch {
+            try {
+              mainRepository.refreshMovies()
+            }catch (e: Exception){
+
+            }
+
+        }
+    }
+
+
 }
+

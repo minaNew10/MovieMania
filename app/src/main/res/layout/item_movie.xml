@@ -33,7 +33,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:padding="4dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@{movie.title}"

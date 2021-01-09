@@ -29,7 +29,11 @@ class MoviesAdapter : ListAdapter<Movie, MoviesAdapter.MovieViewHolder>(DiffUtil
             }
         }
         fun bind(movie:Movie){
-            binding.movie = movie
+            binding.apply {
+               this.movie = movie
+                executePendingBindings()
+            }
+
         }
     }
 

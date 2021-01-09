@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.moviemania.databinding.FragmentMainBinding
 import com.example.moviemania.viewmodels.MoviesViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainFragment : Fragment(){
     private val moviesViewModel by viewModels<MoviesViewModel>()
     override fun onCreateView(

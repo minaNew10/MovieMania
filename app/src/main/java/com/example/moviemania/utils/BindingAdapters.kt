@@ -11,22 +11,24 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.moviemania.R
 import com.example.moviemania.domain.Movie
 import com.example.moviemania.network.MoviesApi
+import com.example.moviemania.ui.DataItem
 import com.example.moviemania.ui.MoviesAdapter
 
-private const val TAG = "BindingAdapters"
 
 @BindingAdapter("bindMovies")
 fun bindList(recyclerView: RecyclerView, movies: List<Movie>?) {
     val adapter = recyclerView.adapter as MoviesAdapter
-    Log.i(TAG, "bindList: $movies")
-    adapter.submitList(movies)
+    val items = when(movies){
+        null -> listOf( DataItem.HeaderItem)
+        else -> listOf(DataItem.HeaderItem) + movies.map { DataItem.MovieItem(it) }
+    }
+    adapter.submitList(items)
 }
 
 @BindingAdapter("bindImage")
 fun bindImageUrl(imageView: ImageView,imgUrl:String){
     imgUrl?.let {
         val uri = MoviesApi.IMAGE_URL.plus(imgUrl).toUri().buildUpon().build()
-        Log.i(TAG, "bindImage: ${uri} " )
         Glide.with(imageView.context)
             .load(uri)
             .transition(DrawableTransitionOptions.withCrossFade())

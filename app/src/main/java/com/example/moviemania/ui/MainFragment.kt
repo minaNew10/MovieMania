@@ -27,12 +27,19 @@ class MainFragment : Fragment(){
             toast.setText(it)
             toast.show()
         })
+        val manager = GridLayoutManager(activity,2)
+        manager.spanSizeLookup = object  : GridLayoutManager.SpanSizeLookup(){
+            override fun getSpanSize(position: Int) = when (position){
+                0 -> 2
+                else -> 1
+            }
+        }
         binding.apply {
             this.layoutViewmodel = moviesViewModel
             setLifecycleOwner(viewLifecycleOwner)
             moviesRecyclerView.apply {
                 adapter = moviesAdapter
-                this.layoutManager = GridLayoutManager(requireContext(),2)
+                this.layoutManager = manager
                 setHasFixedSize(true)
             }
 

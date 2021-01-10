@@ -6,7 +6,9 @@
         <variable
             name="movie"
             type="com.example.moviemania.domain.Movie" />
-
+        <variable
+            name="imageClickHandler"
+            type="com.example.moviemania.ui.OnImageClickHandler" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,6 +21,7 @@
             android:layout_height="match_parent"
             bindImage="@{movie.imageUrl}"
             android:scaleType="fitXY"
+            android:onClick="@{() -> imageClickHandler.onClick(movie)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -27,6 +30,7 @@
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+
             android:background="@drawable/grey_gradient_bg"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"

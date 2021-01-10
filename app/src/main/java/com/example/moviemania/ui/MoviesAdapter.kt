@@ -11,7 +11,7 @@ import com.example.moviemania.databinding.ItemMovieBinding
 import com.example.moviemania.domain.Movie
 
 private const val TAG = "MoviesAdapter"
-class MoviesAdapter : ListAdapter<Movie, MoviesAdapter.MovieViewHolder>(DiffUtilCallBack) {
+class MoviesAdapter(val clickHandler: OnImageClickHandler) : ListAdapter<Movie, MoviesAdapter.MovieViewHolder>(DiffUtilCallBack) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -21,7 +21,7 @@ class MoviesAdapter : ListAdapter<Movie, MoviesAdapter.MovieViewHolder>(DiffUtil
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = getItem(position)
         Log.i(TAG, "onBindViewHolder: $movie" )
-        holder.bind(movie)
+        holder.bind(movie,clickHandler)
     }
 
     class MovieViewHolder(val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root){
@@ -31,9 +31,10 @@ class MoviesAdapter : ListAdapter<Movie, MoviesAdapter.MovieViewHolder>(DiffUtil
                 return MovieViewHolder(binding)
             }
         }
-        fun bind(movie:Movie){
+        fun bind(movie: Movie, clickHandler: OnImageClickHandler){
             binding.apply {
-               this.movie = movie
+                 this.movie = movie
+                this.imageClickHandler = clickHandler
                 executePendingBindings()
             }
 
@@ -50,4 +51,7 @@ class MoviesAdapter : ListAdapter<Movie, MoviesAdapter.MovieViewHolder>(DiffUtil
         }
 
     }
+}
+class OnImageClickHandler(val clickListener: (String) -> Unit){
+    fun onClick(movie: Movie)  = clickListener(movie.title)
 }

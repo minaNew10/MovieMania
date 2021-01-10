@@ -3,13 +3,14 @@ buildscript {
     ext{
         kotlin_version = "1.4.21"
         navigation_version = "2.3.2"
-        kotlin_version = "1.4.21"
+
         hiltAndroidXVersion = "1.0.0-alpha02"
         hiltVersion = "2.28.3-alpha"
         retrofitVersion = '2.9.0'
         room_version = "2.2.5"
         version_moshi = "1.8.0"
         version_retrofit_coroutines_adapter = "0.9.2"
+        glide_version = "4.11.0"
     }
     repositories {
         google()

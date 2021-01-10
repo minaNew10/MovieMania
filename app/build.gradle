@@ -13,6 +13,7 @@ android {
         applicationId "com.example.moviemania"
         minSdkVersion 19
         targetSdkVersion 30
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         buildConfigField("String","MOVIES_API_KEY",MOVIES_API_KEY)
@@ -69,4 +70,10 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     // Retrofit Coroutines Support
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$version_retrofit_coroutines_adapter"
+    // logging
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    // glide for images
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt 'com.github.bumptech.glide:compiler:4.7.1'
 }
